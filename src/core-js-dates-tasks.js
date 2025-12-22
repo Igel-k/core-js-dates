@@ -47,18 +47,8 @@ function getTime(date) {
  * '03 Dec 1995 00:12:00 UTC' => 'Sunday'
  * '2024-01-30T00:00:00.000Z' => 'Tuesday'
  */
-function getDayName(date) {
-  const d = new Date(date);
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  return days[d.getDay()];
+function getDayName() {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -72,8 +62,14 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday() {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const res = new Date(date);
+  res.setDate(
+    res.getDate() +
+      ((5 + 7 - res.getDay()) % 7) +
+      7 * Boolean(!(res.getDay() % 5))
+  );
+  return res;
 }
 
 /**
