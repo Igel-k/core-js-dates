@@ -150,8 +150,8 @@ function isDateInPeriod(date, period) {
  * '1999-01-05T02:20:00.000Z' => '1/5/1999, 2:20:00 AM'
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
-function formatDate(date) {
-  return new Date(date).toLocaleString('en-US', { timeZone: 'UTC' });
+function formatDate() {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -166,8 +166,20 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth() {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  const daysInMonth = new Date(year, month, 0).getDate();
+
+  return Array.from({ length: daysInMonth }).reduce((acc, _, index) => {
+    const day = index + 1;
+    const date = new Date(year, month - 1, day);
+    const dayOfWeek = date.getDay();
+
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      return acc + 1;
+    }
+
+    return acc;
+  }, 0);
 }
 
 /**
